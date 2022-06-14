@@ -7,7 +7,9 @@ import com.assignment.synaos.domain.model.ArticleDomainModel
 import com.assignment.synaos.domain.usecase.NewsUseCase
 import com.assignment.synaos.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,7 +18,7 @@ class ArticleListViewModel @Inject constructor(
 ) : BaseViewModel<ArticleListViewModel.ArticleUIState>() {
     fun getArticles() {
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             Pager(
                 config = PagingConfig(
                     pageSize = 1
@@ -26,8 +28,11 @@ class ArticleListViewModel @Inject constructor(
                 }
             ).flow.cachedIn(viewModelScope)
                 .collect() { pageData ->
-                stateLiveData.value = ArticleUIState.Loaded(pageData)
-            }
+                    withContext(Dispatchers.Main)
+                    {
+                        stateLiveData.value = ArticleUIState.Loaded(pageData)
+                    }
+                }
         }
     }
 
