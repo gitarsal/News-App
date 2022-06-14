@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The News</string>
+    <string name="not_found_error">Not Found</string>
+    <string name="general_error">Some thing went wrong.\nPlease check your connection</string>
+    <string name="server_error">Internal Server Error</string>
+    <string name="learn_more">Learn more about the article</string>
+    <string name="hyperlink">Click to Learn more about the article <a href="https://learntodroid.com"/></string>
+    <string name="retry">Retry</string>
+
+
+</resources>
